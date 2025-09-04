@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { Link } from 'react-router';
+import Navbar from '../components/navbar'
 
 function Cadastro() {
     const [nextId, setNextId] = useState(() => Number(localStorage.getItem("nextId")) || 0)
     const [form, setForm] = useState([])
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         const newEntry = {
             id: nextId,
@@ -14,33 +14,27 @@ function Cadastro() {
             email: e.target.email.value
         };
 
-        const savedForm = JSON.parse(localStorage.getItem("formData") || "[]");
-        const updatedForm = [...savedForm, newEntry];
+        const savedForm = JSON.parse(localStorage.getItem("formData") || "[]")
+        const updatedForm = [...savedForm, newEntry]
 
-        setForm(updatedForm);
+        setForm(updatedForm)
         localStorage.setItem("formData", JSON.stringify(updatedForm));
 
-        setNextId(nextId + 1);
-        localStorage.setItem("nextId", nextId + 1);
+        setNextId(nextId + 1)
+        localStorage.setItem("nextId", nextId + 1)
 
-        alert("Formulário enviado!");
-        e.target.reset();
-        console.log(newEntry);
-    };
+        alert("Formulário enviado!")
+        e.target.reset()
+        console.log(newEntry)
+    }
 
 
 
 
     return (
         <>
-
-            <nav className='fixed top-0 left-0 w-full flex justify-start p-5'>
-                <ul className=' font-bold '>
-                    <li><Link to='/'>VOLTAR</Link></li>
-                </ul>
-            </nav>
-
-
+            <Navbar/>
+            
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <p><input required name="nome" className="text-black placeholder-gray-500 bg-white" placeholder="NOME"></input></p>
                 <p><input required type='email' name="email" className="text-black placeholder-gray-500 bg-white" placeholder="EMAIL"></input></p>
