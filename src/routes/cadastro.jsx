@@ -2,29 +2,32 @@ import { useState } from 'react'
 import { Link } from 'react-router';
 
 function Cadastro() {
-    const [nextId, setNextId] = useState(0)
+    const [nextId, setNextId] = useState(() => Number(localStorage.getItem("nextId")) || 0)
     const [form, setForm] = useState([])
+
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         const newEntry = {
             id: nextId,
             name: e.target.nome.value,
             email: e.target.email.value
-        }
+        };
 
-        setNextId(nextId + 1)
+        const savedForm = JSON.parse(localStorage.getItem("formData") || "[]");
+        const updatedForm = [...savedForm, newEntry];
 
-        const updatedForm = [...form, newEntry]
-        setForm(updatedForm)
-        localStorage.setItem('formData', JSON.stringify(updatedForm))
+        setForm(updatedForm);
+        localStorage.setItem("formData", JSON.stringify(updatedForm));
 
-        alert("Formulário enviado!")
+        setNextId(nextId + 1);
+        localStorage.setItem("nextId", nextId + 1);
 
-        e.target.reset()
+        alert("Formulário enviado!");
+        e.target.reset();
+        console.log(newEntry);
+    };
 
-        console.log(newEntry) 
-    }
 
 
 
@@ -39,8 +42,8 @@ function Cadastro() {
 
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                <p><input  name="nome" className="text-black placeholder-gray-500 bg-white" placeholder="NOME"></input></p>
-                <p><input type='email' name="email" className="text-black placeholder-gray-500 bg-white" placeholder="EMAIL"></input></p>
+                <p><input required name="nome" className="text-black placeholder-gray-500 bg-white" placeholder="NOME"></input></p>
+                <p><input required type='email' name="email" className="text-black placeholder-gray-500 bg-white" placeholder="EMAIL"></input></p>
                 <button type="submit">Submit</button>
             </form>
         </>
