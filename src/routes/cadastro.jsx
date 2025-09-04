@@ -28,18 +28,19 @@ function Cadastro() {
         console.log(newEntry)
     }
 
-
-
-
     return (
         <>
-            <Navbar/>
             
+        <Navbar/>
+
+        <div className="max-w-sm rounded overflow-hidden shadow-xl bg-white p-8">
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                <p><input required name="nome" className="text-black placeholder-gray-500 bg-white" placeholder="NOME"></input></p>
-                <p><input required type='email' name="email" className="text-black placeholder-gray-500 bg-white" placeholder="EMAIL"></input></p>
-                <button type="submit">Submit</button>
+                <p className='text-black'>PREENCHA O FORMULÁRIO:</p>
+                <p><input required name="nome" className="text-black placeholder-gray-500 bg-white pl-2 border-b-2" placeholder="NOME"></input></p>
+                <p><input required type='email' name="email" className="text-black placeholder-gray-500 bg-white pl-2 border-b-2" placeholder="EMAIL"></input></p>
+                <button className="fixed-bottom-0 mt-10 hover:scale-105" type="submit">ENVIAR</button>
             </form>
+        </div>
         </>
     )
 }
